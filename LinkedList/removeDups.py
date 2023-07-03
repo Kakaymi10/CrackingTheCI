@@ -12,29 +12,26 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
-    
+
 class LinkedList:
     def __init__(self):
         self.head = None
-        self.current = None
+
     def prepend(self, data):
-        new_data = Node(data)
-        if self.head is None:
-            self.head = new_data
-        new_data.next = self.head
-        self.head = new_data
-        current = self.head
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
 
     def append(self, data):
-        new_data = Node(data)
+        new_node = Node(data)
         if self.head is None:
-            self.head = new_data
+            self.head = new_node
         else:
             current = self.head
             while current.next is not None:
                 current = current.next
-            current.next = new_data
-        
+            current.next = new_node
+
     def display(self):
         elements = []
         current = self.head
@@ -42,35 +39,29 @@ class LinkedList:
             elements.append(current.data)
             current = current.next
         print("Linked List:", elements)
-        
-    def removeDups(self):
-        if self.head == None:
+
+    def remove_duplicates(self):
+        if self.head is None:
             return
-        HashSet = set()
+        data_set = set()
         previous = None
-        
         current = self.head
         while current is not None:
-            if current.data in HashSet:
+            if current.data in data_set:
                 previous.next = current.next
             else:
-                HashSet.add(current.data)
+                data_set.add(current.data)
                 previous = current
-                
             current = current.next
-            
-            
-node = LinkedList()
-node.append(1)
-node.append(2)
-node.append(3)
-node.append(4)
-node.append(1)
-node.prepend(7)
-node.prepend(2)
-node.prepend(4)
-node.prepend(8)
 
-node.display()
-node.removeDups()
-node.display()
+# Example usage:
+if __name__ == "__main__":
+    linked_list = LinkedList()
+    linked_list.append(1)
+    linked_list.append(2)
+    linked_list.append(3)
+    linked_list.append(2)
+    linked_list.prepend(4)
+    linked_list.display()
+    linked_list.remove_duplicates()
+    linked_list.display()
